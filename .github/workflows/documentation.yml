@@ -1,0 +1,51 @@
+name: Deploy Sphinx to Pages
+
+on:
+  push:
+    branches: ["main"]
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v3
+      - name: Install dependencies
+        run: |
+            sudo apt -y install libgirepository1.0-dev gir1.2-pango-1.0 python3-dev python3-gi python3-gi-cairo gir1.2-gtk-4.0 libcairo2-dev libgtksourceview-5-dev
+      - name: Build documentation site
+        run: |
+          make site
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./docs/_build/html/
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.output.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
