@@ -3,13 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Gaphor examples's documentation!
-===========================================
+Drop the Docs and Embrace the Model with Gaphor!
+================================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   diagrams.rst
 
 
 Indices and tables

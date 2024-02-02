@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Gaphor examples'
+project = 'Drop The Docs and Embrace the Model'
 copyright = '2024, Frank Vanbever'
 author = 'Frank Vanbever'
 
@@ -15,6 +15,7 @@ author = 'Frank Vanbever'
 
 extensions = [
     'sphinx_rtd_theme',
+    'gaphor.extensions.sphinx',
 ]
 
 templates_path = ['_templates']
@@ -27,3 +28,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
+
+gaphor_models = {
+    "model": "../model.gaphor"
+}
